@@ -1,3 +1,4 @@
+/*
 import * as vscode from 'vscode';
 import { basename } from 'path';
 
@@ -13,6 +14,15 @@ export function registerCommand(context: vscode.ExtensionContext, name: string, 
     context.subscriptions.push(vscode.commands.registerCommand(name, handler));
 }
 
+class OpenFileCommand implements vscode.Command {
+    command = 'extension.openFile';
+    title = 'Open File';
+    arguments?: any[];
+
+    constructor(uri: vscode.Uri) {
+        this.arguments = [uri];
+    }
+}
 
 export class PinItem extends vscode.TreeItem {
     filename : string;
@@ -25,10 +35,6 @@ export class PinItem extends vscode.TreeItem {
         this.contextValue = '$Pin';
         this.command = new OpenFileCommand(uri);
     }
-}
-
-export interface PinItemCollection {
-    [file: string]: Array<PinItem>;
 }
 
 
@@ -65,6 +71,7 @@ export class PinItModel implements vscode.TreeDataProvider<PinItem> {
         return null;
     }
 
+    //updates the mdoel
     async refresh() {
         try {
             var pins = this.workspaceState.get<any[]>("pins");
@@ -84,6 +91,7 @@ export class PinItModel implements vscode.TreeDataProvider<PinItem> {
         }
     }
 
+    //add item to the model
     async addItem(element: PinItem) {
         var pins = this.workspaceState.get<any[]>("pins");
         if (!!pins) {
@@ -95,6 +103,7 @@ export class PinItModel implements vscode.TreeDataProvider<PinItem> {
         }
     }
 
+    //remove item form the model
     async removeItem(element: PinItem) {
         var pins = this.workspaceState.get<any[]>("pins");
         var pinList:string[] = [];
@@ -109,6 +118,7 @@ export class PinItModel implements vscode.TreeDataProvider<PinItem> {
         }
     }
 
+    //remove all items from the model
     async Clearitems() {
         this.workspaceState.update("pins", []);
         this.refresh();
@@ -119,15 +129,6 @@ export class PinItModel implements vscode.TreeDataProvider<PinItem> {
     }
 }
 
-class OpenFileCommand implements vscode.Command {
-    command = 'extension.openFile';
-    title = 'Open File';
-    arguments?: any[];
-
-    constructor(uri: vscode.Uri) {
-        this.arguments = [uri];
-    }
-}
 
 export class PinItController {
 
@@ -169,3 +170,4 @@ export function registerPinItView(context: vscode.ExtensionContext) {
 
     return pinItModel;
 }
+*/
